@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from 'react-hook-form'
 import { Form,Row,Col, Button} from "react-bootstrap";
 import { useRouter } from 'next/router'
-const search=()=>{
+const Search=()=>{
     const router=useRouter()
     const { register, handleSubmit, setValue , formState:{errors}} = useForm({
         defaultValues: {
@@ -26,7 +26,7 @@ const search=()=>{
         for (const prop in data){
             setValue(prop, data[prop]);
         }
-      }, [])
+      }, [setValue])
     function submitForm(data){
         const queryString=new URLSearchParams();
         queryString.append(`${data.searchBy}`, 'true');
@@ -117,4 +117,4 @@ const search=()=>{
     
 
 }
-export default search
+export default Search

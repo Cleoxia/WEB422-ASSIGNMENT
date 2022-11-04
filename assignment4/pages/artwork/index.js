@@ -8,14 +8,14 @@ import ArtworkCard from '../../components/ArtworkCard';
 
 
 const PER_PAGE =12;
-const index=()=>{
+const Index=()=>{
   const [page, setPage]=useState(1);
   const [artworkList, setArtworkList]=useState([]);
   const router = useRouter();
   let finalQuery = router.asPath.split('?')[1];
   const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuery}`);
   useEffect(() => {
-    if (data!= null && data!=undefined) {
+    if (data) {
         const results=[];
         for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
             const chunk = data?.objectIDs.slice(i, i + PER_PAGE);
@@ -81,4 +81,4 @@ const index=()=>{
 
 
 }
-export default index
+export default Index
