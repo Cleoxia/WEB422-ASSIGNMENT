@@ -3,15 +3,16 @@ import useSWR from 'swr';
 import Error from 'next/error';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-const ArtWorkCard=(objectID)=>{
+import { Button } from 'react-bootstrap';
+const ArtworkCard=(props)=>{
     
-    const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`);
+    const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.objectID}`);
     if(error){
         return (<Error statusCode={404}/>)
 
     }
     
-    else if(data.length>0){
+    else if(data){
         return (
             <>
             <Card style={{ width: '18rem' }}>
@@ -20,12 +21,12 @@ const ArtWorkCard=(objectID)=>{
                     <Card.Title>{data.title?data.title:'N/A'}</Card.Title>
                     <br/>
                     <Card.Text>
-                        Date:{data.objectDate?data.objectDate:'N/A'}<br/>
-                        Classification:{data.classification?data.classification:'N/A'}<br/>
-                        Medium:{data.medium?data.medium:'N/A'}<br/>
+                        <strong>Date:</strong> {data.objectDate?data.objectDate:'N/A'}<br/>
+                        <strong>Classification:</strong> {data.classification?data.classification:'N/A'}<br/>
+                        <strong>Medium:</strong> {data.medium?data.medium:'N/A'}<br/>
                     </Card.Text>
-                    <Link href={`/artwork/${objectID}`} pressHref>
-                        <Button variant="primary">{objectID}</Button>
+                    <Link href={`/artwork/${props.objectID}`} pressHref>
+                        <Button variant="outline-dark">ID: {props.objectID}</Button>
                     </Link>
                 </Card.Body>
             </Card>
@@ -38,4 +39,4 @@ const ArtWorkCard=(objectID)=>{
     
 
 }
-export default ArtWorkCard
+export default ArtworkCard

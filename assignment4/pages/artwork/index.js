@@ -3,7 +3,8 @@ import { useEffect,useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr'
 import Error from 'next/error';
-import {Row,Col,Card} from 'react-bootstrap'
+import {Row,Col,Card,Pagination} from 'react-bootstrap'
+import ArtworkCard from '../../components/ArtworkCard';
 
 
 const PER_PAGE =12;
@@ -30,9 +31,7 @@ const index=()=>{
     }
   }  
   const next=()=>{
-    if(page < artworkList.length()){
-        setPage(page+1)
-    } 
+    setPage(page+1) 
   }
   
   if(error){
@@ -41,17 +40,16 @@ const index=()=>{
 
   if(artworkList!= null && artworkList!=undefined){
     console.log(artworkList);
-    console.log(index);
-    console.log(artworkList[index]);
+    
     
     return(
         <>
         <Row className="gy-4">
            {artworkList.length>0?
-           artworkList[{index}].map((item,index)=>{
+           artworkList[page-1].map((item)=>{
             return(
-                <Col lg={3} key={item._id}>
-                    <ArtworkCard objectID={item._id} />
+                <Col lg={3} key={item}>
+                    <ArtworkCard objectID={item} />
                 </Col>
             )})
            :<Card>
@@ -60,13 +58,15 @@ const index=()=>{
             </Card>
            }
         </Row> 
+        <br/>
         {artworkList.length>0?
         <Row>
             <Col>
                 <Pagination>
                     <Pagination.Prev onClick={previous}/>
                     <Pagination.Item>{page}</Pagination.Item>
-                    <Pagination.Next onClick={next}/>
+                    {artworkList[page]?<><Pagination.Next onClick={next}/></>:<></>}
+                    
                 </Pagination>
             </Col>
         </Row>

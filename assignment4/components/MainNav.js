@@ -3,6 +3,7 @@ import {Container, Nav, Navbar, Form, Button}from 'react-bootstrap'
 import { useState } from 'react';
 import { useRouter } from 'next/router'
 
+
 const MainNav=()=>{
     const [newRoute,setNewRoute]=useState('');
     const router=useRouter();
