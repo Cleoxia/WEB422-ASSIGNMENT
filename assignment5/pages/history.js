@@ -2,6 +2,7 @@ import { useAtom } from 'jotai';
 import { searchHistoryAtom } from '../store';
 import { useRouter } from 'next/router';
 import {Button, ListGroup, Card} from 'react-bootstrap'
+import styles from '../styles/History.module.css'
 
 const History=()=>{
     const [searchHistory, setSearchHistory]=useAtom(searchHistoryAtom)
