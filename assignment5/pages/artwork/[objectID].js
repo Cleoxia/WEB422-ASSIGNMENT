@@ -6,16 +6,13 @@ const Artwork=()=>{
     const router=useRouter()
     const {objectID}=router.query
     return(
-        <div>
+        <>
             <Row>
                 <Col>
                     <ArtworkCardDetail objectID={objectID} />
                 </Col>
             </Row>
-
-        </div>
-        
-
+        </>
     )
 }
 export default Artwork

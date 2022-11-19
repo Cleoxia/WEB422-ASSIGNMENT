@@ -2,6 +2,7 @@ import React from 'react'
 import {Container, Nav, Navbar, Form, Button}from 'react-bootstrap'
 import { useState } from 'react';
 import { useRouter } from 'next/router'
+import Link from 'next/link';
 
 
 const MainNav=()=>{
@@ -20,8 +21,9 @@ const MainNav=()=>{
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/" pressHref>Home</Nav.Link>
-                <Nav.Link href="/search" pressHref>Advanced Search</Nav.Link>
+                <Link href="/" passHref> <Nav.Link >Home</Nav.Link> </Link>
+                <Link href="/search" passHref>A<Nav.Link>Advanced Search</Nav.Link></Link>
+                
               </Nav>
               <Form className="d-flex" onSubmit={handleSubmit}>
                 <Form.Control
