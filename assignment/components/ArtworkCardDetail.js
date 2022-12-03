@@ -5,32 +5,24 @@ import {Card, Button} from 'react-bootstrap';
 import Link from 'next/link';
 import {useAtom} from 'jotai'
 import {favouritesAtom} from '../store'
-import {useState, useEffect} from 'react'
-import { addToFavourites, removeFromFavourites } from '../lib/userData'
+import {useState} from 'react'
 
 const ArtworkCardDetail=(props)=>{
 
     const [favouritesList, setFavouritesList]=useAtom(favouritesAtom)
-    const [showAdded, setShowAdded]=useState(false)
-
-    const { data, error } = useSWR(props.objectID?`https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.objectID}`:null);
-
-    useEffect(()=>{
-        setShowAdded(favouritesList?.includes(props.objectID))
-    }, [favouritesList])
-
-    async function favouriteClick(){
+    const [showAdded, setShowAdded]=useState(()=>{favouritesList.includes(props.objectID)?true:false})
+    function favouriteClick(){
         if(showAdded){
-            setFavouritesList(await removeFromFavourites(props.objectID));
+            setFavouritesList(current => current.filter(fav => fav != props.objectID));
             setShowAdded(false);
         }
         else{
-            setFavouritesList(await addToFavourites(props.objectID));
+            setFavouritesList(current => [...current, props.objectID]);
             setShowAdded(true);
         }
     }
     
-   
+    const { data, error } = useSWR(props.objectID?`https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.objectID}`:null);
     if(error){
         return (<><Error statusCode={404}/></>)
 

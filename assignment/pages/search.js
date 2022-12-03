@@ -4,7 +4,6 @@ import { Form,Row,Col, Button} from "react-bootstrap";
 import { useRouter } from 'next/router'
 import { useAtom } from "jotai";
 import { searchHistoryAtom } from "../store";
-import { addToHistory } from '../lib/userData';
 
 const Search=()=>{
     const router=useRouter()
@@ -32,8 +31,7 @@ const Search=()=>{
             setValue(prop, data[prop]);
         }
       }, [setValue])
-      
-      async function submitForm(data){
+    function submitForm(data){
         const queryString=new URLSearchParams();
         queryString.append(`${data.searchBy}`, 'true');
         
@@ -51,7 +49,7 @@ const Search=()=>{
        
        router.push(`/artwork?${queryString}`);
 
-       setSearchHistory(await addToHistory(queryString));
+       setSearchHistory(current => [...current, queryString]);
 
     }
     return(
